@@ -1,5 +1,5 @@
 use std::env::args;
-use learn::{encrypt, decrypt};
+use cryptography_hashing::ccypher::{encrypt, decrypt, crack};
 
 fn main() -> Result<(), std::io::Error> {
     let args: Vec<String> = args().collect();
@@ -14,6 +14,13 @@ fn main() -> Result<(), std::io::Error> {
         if fn_name == "de" {
             let d = decrypt(raw_text, key);
             println!("After decrypt {}->{}", raw_text, d);
+        }
+    }
+    if args.len() == 3 {
+        let fn_name = &args[1];
+        let raw_text = &args[2];
+        if fn_name == "crk" {
+            crack(raw_text);
         }
     }
     Ok(())
